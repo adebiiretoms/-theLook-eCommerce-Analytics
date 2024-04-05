@@ -23,7 +23,9 @@ SELECT
   sale_price
 FROM
   {{ ref("stgUsers") }} AS us
-INNER JOIN
+LEFT JOIN
   {{ ref("stgOrderItems") }} AS oi
 ON
   oi.user_id = us.id
+WHERE 
+    oi.id is not null
