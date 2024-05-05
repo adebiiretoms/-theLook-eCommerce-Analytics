@@ -12,9 +12,11 @@ SELECT
   pr.name,
   pr.brand,
   pr.department,
+  pr.retail_price,
   dc.id AS dc_id,
   dc.name AS dc_name,
-  DATE(oi.returned_at) AS return_date,
+  ord.num_of_item,
+  DATE(oi.returned_at) AS return_date
 FROM
   {{ ref("stgOrderItems") }} AS oi
 LEFT JOIN
@@ -29,5 +31,9 @@ LEFT JOIN
   {{ ref("stgDistributionCentre") }} AS dc
 ON
   dc.id = pr.distribution_center_id
+LEFT JOIN
+  {{ ref("stgOrders") }} AS ord
+ON
+  oi.order_id = ord.order_id
 WHERE
   oi.returned_at IS NOT null

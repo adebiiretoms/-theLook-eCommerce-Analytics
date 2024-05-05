@@ -10,7 +10,8 @@ SELECT
   ord.order_id,
   ord.user_id,
   ord.gender,
-  ord.num_of_item
+  ord.num_of_item,
+  oi.status
 FROM
   {{ ref("stgProducts") }} AS pr
 LEFT JOIN
