@@ -1,22 +1,18 @@
 SELECT
-  us,
-  ord,
-  dc
+  pr.distribution_center_id,
+  dc.name,
+  pr.id,
+  pr.category,
+  pr.department,
+  oi.order_id,
+  oi.user_id,
 FROM
-  {{ ref("stgUsers") }} AS us
-LEFT JOIN
-  {{ ref("stgOrders") }} AS ord
-ON
-  us.id = ord.user_id
-LEFT JOIN
-  {{ ref("stgOrderItems") }} AS oi
-ON
-  oi.user_id = us.id
+  {{ ref("stgDistributionCentre") }} AS dc
 LEFT JOIN
   {{ ref("stgProducts") }} AS pr
 ON
-  pr.id =oi.product_id
-LEFT JOIN
-  {{ ref("stgDistributionCentre") }} AS dc
-ON
   dc.id = pr.distribution_center_id
+LEFT JOIN
+  {{ ref("stgOrderItems") }} AS oi
+ON
+  pr.id = oi.product_id

@@ -14,7 +14,7 @@ SELECT
   user_id,
   product_id,
   status,
-  DATE_DIFF(order_date, delivery_date, day) AS waiting_time
+  DATE_DIFF(delivery_date, order_date, day) AS waiting_time
 FROM
   deliveryTime
 WHERE
